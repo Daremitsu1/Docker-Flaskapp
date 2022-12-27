@@ -14,7 +14,14 @@ classifier = pickle.load(pickle_in)
 def welcome():
     return "Welcome All!"
 
-
+@app.route('/predict')
+def predict_note_authentication():
+    variance = request.args.get('variance')
+    skewness = request.args.get('skewness')
+    curtosis = request.args.get('curtosis')
+    entropy = request.args.get('entropy')
+    prediction = classifier.predict([[variance, skewness, curtosis, entropy]])
+    return "The predicted value is" + str(prediction)
 
 if __name__ == "__main__":
     app.run()
